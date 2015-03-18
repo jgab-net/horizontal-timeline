@@ -1,4 +1,94 @@
+$border_radius_base: 0;
+
 
 // bower:scss
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
+
+$timeline_space: 42px;
+$timeline_box_size: 40px;
+$timeline_margin_box: 5px;
+$timeline_box_union_size: -14px + $timeline_margin_box;
+
+
+.timeline-container {
+	overflow: hidden;
+	height: 120px;		
+	position: relative;	
+	cursor: grab;
+	
+	&.timeline-drag{
+		cursor: grabbing;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		border-bottom: 2px dotted #bbb;
+		top: 50%;
+		left: $timeline_space;
+		right: $timeline_space;
+		height: 0;
+	}
+
+	.timeline-control {
+		height: 120px;
+		position: absolute;
+		width: $timeline_space;
+		z-index: 2;
+		top: 0;
+		&.timeline-control-left {
+			left: 0;
+		}
+
+		&.timeline-control-right {
+			right: 0;		
+		}
+	}
+
+	.timeline {			
+		height: 120px;
+		position: relative;				
+		text-align: center;
+		z-index: 1;
+
+		.timeline-item {
+			line-height: 2.8em;
+			height: $timeline_box_size;
+			position: absolute;
+			background: #fff;
+
+			&.timeline-item-node {
+				width: 140px;	
+				margin: $timeline_margin_box; 			
+				border: 1px solid red;						
+				
+				&.top-line::before {
+					content: '';
+					position: absolute;
+					border-left: 2px dotted #bbb;
+					top: $timeline_box_union_size;
+					left: 50%;
+					bottom: $timeline_box_size;
+				}
+
+				&.bottom-line::before {
+					content: '';
+					position: absolute;
+					border-left: 2px dotted #bbb;
+					top: $timeline_box_size;
+					left: 50%;
+					bottom: $timeline_box_union_size;
+				}
+			}
+
+			&.timeline-item-info {
+				top: 40px - ($timeline_margin_box / 2);
+				margin: $timeline_margin_box;
+				border-radius: 40px;
+				width: 40px;
+				border: 1px solid red;
+			}
+		}	
+	}
+}

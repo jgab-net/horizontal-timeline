@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="demo">
 <head>
 	<meta charset="utf-8">
 	<title>horizontal-timeline</title>
@@ -14,16 +14,23 @@
     <link rel="stylesheet" href="/src/styles/main.css">        
     <!-- endinject -->
 </head>
-<body>	
+<body ng-controller="MainController">
+
+	<timeline items="items" alias="timeline">		
+	</timeline>
+
+
 	<!-- bower:js -->
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/angular/angular.js"></script>
 	<script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
 	<script src="../bower_components/moment/moment.js"></script>
+	<script src="../bower_components/interact/interact.js"></script>
 	<!-- endbower -->
 	
     <!-- inject:js -->
     <script src="/src/scripts/app.js"></script>
+    <script src="/src/scripts/timeline.js"></script>
     <!-- endinject -->
 </body>
 </html>

@@ -3,13 +3,14 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	wiredep = require('wiredep').stream,
 	autoprefixer = require('gulp-autoprefixer'),
-	inject = require('gulp-inject'),
-	filter = require('gulp-filter');
+	inject = require('gulp-inject');
 
 
 gulp.task('sass', ['scss'], function () {		
 	return gulp.src('./src/styles/**/*.scss')
-		.pipe(sass())		
+		.pipe(sass({
+			errLogToConsole: true
+		}))		
 		.pipe(autoprefixer())
 		.pipe(gulp.dest('./src/styles'))
 		.pipe(browserSync.reload({stream: true}));	
@@ -41,8 +42,8 @@ gulp.task('serve', ['sass', 'inject'], function () {
             baseDir: './',
             index: 'src/index.html',
             //directory: true,
-            routes: {                
-                '/bower_components': '../bower_components'
+            routes: {                                
+                '/templates': './src/templates'
             }
         }, 
         port: 9000,
