@@ -16,7 +16,7 @@ angular
 				};
 
 				this.steps = [];
-				this.currentStep = 0;
+				this.yearSteps = [];
 
 				$scope.nodes = [];
 
@@ -38,21 +38,77 @@ angular
 					backItem = item;
 				});		
 
-				this.step = function (step) {
+				this.stepUp = function () {	
 
-				};		
+					var currentStep = this.findStep();
+					
+					if (currentStep >= 0 && currentStep < this.steps.length-1) {
+						$scope.style.left = this.steps[++currentStep];
+						$scope.$apply();
+					}					
+				};	
+
+				this.stepDown = function () {	
+
+					var currentStep = this.findStep();	
+
+					if (currentStep > 0 && currentStep <= this.steps.length-1) {
+						$scope.style.left = this.steps[--currentStep];
+						$scope.$apply();					
+					}
+				};
+
+				this.yearStepUp = function () {
+					var currentStep = this.findYearStep();
+					
+					if (currentStep >= 0 && currentStep < this.yearSteps.length-1) {
+						$scope.style.left = this.yearSteps[++currentStep];
+						$scope.$apply();
+					}					
+				};
+
+				this.yearStepDown = function () {
+					var currentStep = this.findYearStep();	
+					
+					if (currentStep > 0 && currentStep <= this.yearSteps.length-1) {
+						$scope.style.left = this.yearSteps[--currentStep];
+						$scope.$apply();					
+					}
+				};
+
+				this.findStep = function () {
+					for (var i = 0; i < this.steps.length; i++) {
+						if (this.steps[i] <= parseInt($scope.style.left)) {
+							return i;
+							break;
+						}
+					}					
+				};
+
+				this.findYearStep = function () {
+					for (var i = this.yearSteps.length-1; i >= 0 ; i--) {
+						console.log(this.yearSteps[i]+'  >=  '+parseInt($scope.style.left));
+						if (this.yearSteps[i] >= parseInt($scope.style.left)) {
+							return i;
+							break;
+						}
+					}					
+				};
 
 				this.move = function (value, viewPortWidth) {					
 					var value = (parseInt($scope.style.left)+value);					
 					if (value <= this.timelineSettings.space) {				
-						if ((-1)*value<=(this.timelineSettings.width-viewPortWidth+this.timelineSettings.space)){
+						//-1*(this.timelineSettings.space+this.timelineSettings.width-viewPortWidth)
+						if (value > this.steps[this.steps.length - 1]){
 							$scope.style.left = value+'px';
 						} else {
-							$scope.style.left = -1*(this.timelineSettings.width-viewPortWidth)-this.timelineSettings.space+'px';
+							//$scope.style.left = -1*(this.timelineSettings.width-viewPortWidth)-this.timelineSettings.space+'px';
+							$scope.style.left = this.steps[this.steps.length - 1];
 						}
 					} else {
 						$scope.style.left = this.timelineSettings.space+'px';
-					}				
+					}
+					$scope.$apply();				
 				};
 
 				$scope.select = function (node) {
@@ -62,8 +118,13 @@ angular
 			link: function (scope, element, attrs, controller) {
 				if (scope.alias) scope.$parent[scope.alias] = controller.exports;							
 
-				$leftControl = element.find('.timeline-control-left');
-				$rightControl = element.find('.timeline-control-right');				
+				$leftControl = element.find('.btn-left');
+				$rightControl = element.find('.btn-right');	
+
+				$leftYearControl = element.find('.btn-left-year');
+				$rightYearControl = element.find('.btn-right-year');
+
+				$timeline = element.find('.timeline');		
 
 				scope.style = {
 					left: controller.timelineSettings.space+'px'
@@ -74,9 +135,10 @@ angular
 
 					var changeClass = false;				
 					
+					controller.yearSteps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 					$items.each(function (i, item) {					
 
-						controller.steps.push(controller.timelineSettings.width);		
+						controller.steps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);		
 						if (scope.nodes[i].type === 'node') {							
 							$(item)
 								.css({
@@ -86,58 +148,61 @@ angular
 								})
 								.addClass(!changeClass?'bottom-line':'top-line')
 								.addClass('timeline-item-node')
-								.data('x', controller.timelineSettings.width);
+								.data('x', (-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 
 							controller.timelineSettings.width += parseInt($(item).outerWidth(true));	
 							changeClass = !changeClass;												
 						} else {
+							controller.yearSteps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 							$(item)
 								.css({
 									left: controller.timelineSettings.width+'px'
 								})
 								.addClass('timeline-item-info')
-								.data('x', controller.timelineSettings.width);
+								.data('x', (-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 
 							controller.timelineSettings.width += parseInt($(item).outerWidth(true));
-						}				
-
+						}										
 					});
 
 					scope.style.width = controller.timelineSettings.width+'px';
+					scope.style.left = controller.steps[controller.steps.length - 3];
 				});
 
 				var stop;
 
-				$leftControl
-					.on('mousedown', function () {
-						stop = $interval(function (){
-							controller.move(-8, element.width());	
-						});									
-					})
-					.on('mouseup mouseleave', function () {
-						$interval.cancel(stop);
-					});
+				$leftControl.on('click', function () {
+					controller.stepUp();						
+				});
 
-				$rightControl
-					.on('mousedown', function () {
-						stop = $interval(function (){
-							controller.move(8, element.width());	
-						});	
-					})
-					.on('mouseup mouseleave', function () {
-						$interval.cancel(stop);
-					});
+				$rightControl.on('click', function () {
+					controller.stepDown();	
+				});
+
+				$leftYearControl.on('click', function () {
+					controller.yearStepUp();						
+				});
+
+				$rightYearControl.on('click', function () {					
+					controller.yearStepDown();	
+				});
 
 				interact('.timeline', {
 						context: element
 					})					
 					.draggable({
 						inertia: true,
-						axis:'x',						
+						axis:'x',
+						onstart: function (event) {
+							$timeline.removeClass('timeline-animation');
+							element.addClass('timeline-drag');
+						},						
 						onmove: function (event) {
-							scope.$apply(function () {
-								controller.move(event.dx, element.width());
-							});							
+							controller.move(event.dx, element.width());							
+						},
+						onend: function (event) {
+							$timeline.addClass('timeline-animation');
+							element.removeClass('timeline-drag');
 						}
 					}).styleCursor(true);
 

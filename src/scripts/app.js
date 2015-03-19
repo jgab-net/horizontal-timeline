@@ -5,11 +5,11 @@ angular
 		$scope.items = [
 			{
 				name: 'item1',
-				date: moment().subtract(2, 'year').toDate()
+				date:  moment().subtract(3, 'year').subtract(1, 'day').toDate()
 			},
 			{
 				name: 'item6',
-				date: moment().subtract(1, 'year').subtract(1, 'day').toDate()
+				date: moment().subtract(3, 'year').subtract(1, 'day').toDate()
 			},
 			{
 				name: 'item7',

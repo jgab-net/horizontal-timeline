@@ -1,19 +1,23 @@
 $border_radius_base: 0;
 
+$icon_font_path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 // bower:scss
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
 $timeline_space: 42px;
-$timeline_box_size: 40px;
+$timeline_box_height: 40px;
+$timeline_box_width: 140px;
 $timeline_margin_box: 5px;
 $timeline_box_union_size: -14px + $timeline_margin_box;
+$timeline_height: 120px;
+$timeline_middle_line_size: 2px;
 
 
 .timeline-container {
 	overflow: hidden;
-	height: 120px;		
+	height: $timeline_height;
 	position: relative;	
 	cursor: grab;
 	
@@ -24,19 +28,20 @@ $timeline_box_union_size: -14px + $timeline_margin_box;
 	&::before {
 		content: '';
 		position: absolute;
-		border-bottom: 2px dotted #bbb;
-		top: 50%;
+		border-bottom: $timeline_middle_line_size dotted #bbb;
+		top: $timeline_height / 2 - ($timeline_middle_line_size / 2);
 		left: $timeline_space;
 		right: $timeline_space;
 		height: 0;
 	}
 
 	.timeline-control {
-		height: 120px;
+		height: $timeline_height;
 		position: absolute;
 		width: $timeline_space;
 		z-index: 2;
 		top: 0;
+		
 		&.timeline-control-left {
 			left: 0;
 		}
@@ -44,49 +49,61 @@ $timeline_box_union_size: -14px + $timeline_margin_box;
 		&.timeline-control-right {
 			right: 0;		
 		}
+
+		.btn {
+			font-size: 2em;
+			padding: 2px;
+			line-height: 2em;
+			height: 50%;
+			text-align: center;
+		}
 	}
 
 	.timeline {			
-		height: 120px;
+		height: $timeline_height;
 		position: relative;				
 		text-align: center;
 		z-index: 1;
 
+		&.timeline-animation {
+			transition: left 0.6s;
+		}		
+
 		.timeline-item {
 			line-height: 2.8em;
-			height: $timeline_box_size;
+			height: $timeline_box_height;
 			position: absolute;
-			background: #fff;
+			background: #fff;		
 
 			&.timeline-item-node {
-				width: 140px;	
+				width: $timeline_box_width;	
 				margin: $timeline_margin_box; 			
 				border: 1px solid red;						
 				
 				&.top-line::before {
 					content: '';
 					position: absolute;
-					border-left: 2px dotted #bbb;
+					border-left: $timeline_middle_line_size dotted #bbb;
 					top: $timeline_box_union_size;
 					left: 50%;
-					bottom: $timeline_box_size;
+					bottom: $timeline_box_height;
 				}
 
 				&.bottom-line::before {
 					content: '';
 					position: absolute;
-					border-left: 2px dotted #bbb;
-					top: $timeline_box_size;
+					border-left: $timeline_middle_line_size dotted #bbb;
+					top: $timeline_box_height;
 					left: 50%;
 					bottom: $timeline_box_union_size;
 				}
 			}
 
 			&.timeline-item-info {
-				top: 40px - ($timeline_margin_box / 2);
+				top: $timeline_box_height - ($timeline_margin_box / 2);
 				margin: $timeline_margin_box;
-				border-radius: 40px;
-				width: 40px;
+				border-radius: $timeline_box_height;
+				width: $timeline_box_height;
 				border: 1px solid red;
 			}
 		}	

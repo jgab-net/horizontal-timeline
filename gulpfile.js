@@ -43,7 +43,7 @@ gulp.task('serve', ['sass', 'inject'], function () {
             index: 'src/index.html',
             //directory: true,
             routes: {                                
-                '/templates': './src/templates'
+                '/templates': './src/templates'                
             }
         }, 
         port: 9000,

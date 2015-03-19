@@ -1,6 +1,9 @@
 <div class="timeline-container">
-	<div class="timeline-control timeline-control-left btn btn-primary"></div>
-	<div class="timeline" ng-style="style">
+	<div class="btn-group-vertical timeline-control timeline-control-left" role="group">
+		<div class="btn btn-primary btn-left"><i class="glyphicon glyphicon-triangle-left"></i></div>
+		<div class="btn btn-primary btn-left-year"><i class="glyphicon glyphicon-backward"></i></div>
+	</div>
+	<div class="timeline timeline-animation" ng-style="style">
 		<div class='timeline-item' ng-repeat="node in nodes">
 			<div ng-if="node.type === 'node'" ng-click="select(node)">
 				{{ node.date | date:'yyyy-MM-dd' }}
@@ -10,5 +13,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="timeline-control timeline-control-right btn btn-primary"></div>
+	<div class="timeline-control timeline-control-right btn-group-vertical" role="group">
+		<div class="btn btn-primary btn-right"><i class="glyphicon glyphicon-triangle-right"></i></div>
+		<div class="btn btn-primary btn-right-year"><i class="glyphicon glyphicon-forward"></i></div>
+	</div>
 </div>
