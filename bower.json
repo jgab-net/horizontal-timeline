@@ -1,11 +1,14 @@
 {
-  "name": "horizontal-timeline",
+  "name": "timeline",
   "version": "0.0.0",
   "authors": [
     "@jgab_net <jgab.net@gmail.com>"
   ],
   "description": "angular horizontal timeline directive",
-  "main": "dist/horizontal-timeline.js",
+  "main": [
+    "dist/timeline.min.js",
+    "dist/_timeline.scss"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",

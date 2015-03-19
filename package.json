@@ -1,15 +1,17 @@
 {
-  "name": "horizontal-timeline",
+  "name": "timeline",
   "version": "0.0.0",
   "description": "angualar horizontal timeline directive",
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.2.1",
+    "event-stream": "^3.3.0",
     "gulp": "^3.8.11",
     "gulp-angular-templatecache": "^1.5.0",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-bower": "0.0.10",
+    "gulp-concat": "^2.5.2",
     "gulp-cssmin": "^0.1.6",
     "gulp-inject": "^1.2.0",
     "gulp-ng-annotate": "^0.5.2",
@@ -23,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jgab-net/horizontal-timeline"
+    "url": "git@github.com:jgab-net/timeline"
   },
   "author": "jgab_net jgab.net@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jgab-net/horizontal-timeline/issues"
+    "url": "https://github.com/jgab-net/timeline/issues"
   },
-  "homepage": "https://github.com/jgab-net/horizontal-timeline"
+  "homepage": "https://github.com/jgab-net/timeline"
 }

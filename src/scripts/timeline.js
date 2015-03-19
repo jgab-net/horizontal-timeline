@@ -2,7 +2,7 @@ angular
 	.module('timeline', [])
 	.directive('timeline', function ($interval, $timeout) {
 		return {
-			templateUrl: '../templates/timeline.html',
+			templateUrl: '../views/timeline.html',
 			replace: true,
 			scope: {
 				alias: '@?', 
@@ -52,15 +52,15 @@ angular
 
 					var currentStep = this.findStep();	
 
-					if (currentStep > 0 && currentStep <= this.steps.length-1) {
+					if (currentStep > 0 && currentStep < this.steps.length) {
 						$scope.style.left = this.steps[--currentStep];
 						$scope.$apply();					
 					}
 				};
 
 				this.yearStepUp = function () {
-					var currentStep = this.findYearStep();
-					
+					var currentStep = this.findYearStep();					
+
 					if (currentStep >= 0 && currentStep < this.yearSteps.length-1) {
 						$scope.style.left = this.yearSteps[++currentStep];
 						$scope.$apply();
@@ -68,9 +68,11 @@ angular
 				};
 
 				this.yearStepDown = function () {
-					var currentStep = this.findYearStep();	
-					
-					if (currentStep > 0 && currentStep <= this.yearSteps.length-1) {
+					var currentStep = this.findYearStep();
+
+					if (currentStep === undefined) currentStep = this.yearSteps.length-1;
+
+					if (currentStep > 0 && currentStep < this.yearSteps.length) {
 						$scope.style.left = this.yearSteps[--currentStep];
 						$scope.$apply();					
 					}
@@ -86,13 +88,14 @@ angular
 				};
 
 				this.findYearStep = function () {
-					for (var i = this.yearSteps.length-1; i >= 0 ; i--) {
-						console.log(this.yearSteps[i]+'  >=  '+parseInt($scope.style.left));
-						if (this.yearSteps[i] >= parseInt($scope.style.left)) {
+					console.log(this.yearSteps);
+					for (var i = 0; i < this.yearSteps.length; i++) {
+						if (this.yearSteps[i] <= parseInt($scope.style.left)) {
+							console.log(i);
 							return i;
 							break;
 						}
-					}					
+					}
 				};
 
 				this.move = function (value, viewPortWidth) {					
@@ -135,7 +138,7 @@ angular
 
 					var changeClass = false;				
 					
-					controller.yearSteps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);
+					//controller.yearSteps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 					$items.each(function (i, item) {					
 
 						controller.steps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);		

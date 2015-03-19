@@ -3,9 +3,13 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	wiredep = require('wiredep').stream,
 	autoprefixer = require('gulp-autoprefixer'),
-	inject = require('gulp-inject');
-
-
+	inject = require('gulp-inject'),
+	eventStream = require('event-stream'),
+	templateCache = require('gulp-angular-templatecache'),
+	concat = require('gulp-concat'),
+	ngAnnotate = require('gulp-ng-annotate'),
+	uglify = require('gulp-uglify');
+	
 gulp.task('sass', ['scss'], function () {		
 	return gulp.src('./src/styles/**/*.scss')
 		.pipe(sass({
@@ -43,7 +47,7 @@ gulp.task('serve', ['sass', 'inject'], function () {
             index: 'src/index.html',
             //directory: true,
             routes: {                                
-                '/templates': './src/templates'                
+                '/views': './src/views'                
             }
         }, 
         port: 9000,
@@ -55,3 +59,23 @@ gulp.task('serve', ['sass', 'inject'], function () {
     gulp.watch('./src/styles/**/*.scss', ['sass']);
     gulp.watch(['./src/**/*.html','./src/scripts/**/*.js'], browserSync.reload);
 });
+
+gulp.task('mv', function () {
+	return gulp.src('./src/styles/_timeline.scss')
+		.pipe(autoprefixer())
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('build', ['mv'], function () {
+	return eventStream.merge(
+			gulp.src('./src/scripts/timeline.js'),
+			gulp.src('./src/views/**/*.html')
+				.pipe(templateCache())
+		)
+		.pipe(concat('timeline.min.js'))
+		.pipe(ngAnnotate())
+		.pipe(uglify())
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('default', ['build']);
