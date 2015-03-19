@@ -5,7 +5,7 @@
 	</div>
 	<div class="timeline timeline-animation" ng-style="style">
 		<div class='timeline-item' ng-repeat="node in nodes">
-			<div ng-if="node.type === 'node'" ng-click="select(node)">
+			<div ng-if="node.type === 'node'" ng-click="getRealItem(node)">
 				{{ node.date | date:'yyyy-MM-dd' }}
 			</div>
 			<div ng-if="node.type === 'info'">

@@ -6,7 +6,8 @@ angular
 			replace: true,
 			scope: {
 				alias: '@?', 
-				items: '='				
+				items: '=',
+				select: '&?'			
 			}, 			
 			controller: function ($scope) {
 				this.timelineSettings = {
@@ -22,7 +23,7 @@ angular
 
 				var backItem = $scope.items[0];
 
-				$scope.items.forEach(function (item) {
+				$scope.items.forEach(function (item, i) {
 					var diff = moment(item.date).year() - moment(backItem.date).year();
 
 					for (var j=diff; j>0; j--) {							
@@ -32,7 +33,8 @@ angular
 						});						
 					}
 					$scope.nodes.push(angular.extend({
-						type: 'node'
+						type: 'node',
+						index: i
 					}, item));	
 
 					backItem = item;
@@ -87,11 +89,9 @@ angular
 					}					
 				};
 
-				this.findYearStep = function () {
-					console.log(this.yearSteps);
+				this.findYearStep = function () {					
 					for (var i = 0; i < this.yearSteps.length; i++) {
-						if (this.yearSteps[i] <= parseInt($scope.style.left)) {
-							console.log(i);
+						if (this.yearSteps[i] <= parseInt($scope.style.left)) {							
 							return i;
 							break;
 						}
@@ -114,8 +114,8 @@ angular
 					$scope.$apply();				
 				};
 
-				$scope.select = function (node) {
-					console.log(node);
+				$scope.getRealItem = function (node) {
+					$scope.select({item: $scope.items[node.index]});
 				};
 			},
 			link: function (scope, element, attrs, controller) {

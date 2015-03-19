@@ -37,6 +37,9 @@ angular
 			}
 		];
 
+		$scope.selectedItem = function (item) {
+			console.log(item);
+		}
 		
 
 	});
