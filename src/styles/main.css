@@ -4886,6 +4886,12 @@ button.close {
         width: 140px;
         margin: 5px;
         border: 1px solid red; }
+        .timeline-container .timeline .timeline-item.timeline-item-node.item-active {
+          border-color: blue;
+          -webkit-transition: background-color 0.6s;
+                  transition: background-color 0.6s;
+          -webkit-transition: border-color 0.6s;
+                  transition: border-color 0.6s; }
         .timeline-container .timeline .timeline-item.timeline-item-node.top-line::before {
           content: '';
           position: absolute;

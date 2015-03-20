@@ -114,7 +114,7 @@ angular
 					$scope.$apply();				
 				};
 
-				$scope.getRealItem = function (node) {
+				this.getRealItem = function (node) {
 					$scope.select({item: $scope.items[node.index]});
 				};
 			},
@@ -131,7 +131,7 @@ angular
 
 				scope.style = {
 					left: controller.timelineSettings.space+'px'
-				};							
+				};
 
 				$timeout(function () {
 					$items = element.find('.timeline-item');						
@@ -151,7 +151,13 @@ angular
 								})
 								.addClass(!changeClass?'bottom-line':'top-line')
 								.addClass('timeline-item-node')
-								.data('x', (-1)*controller.timelineSettings.width+controller.timelineSettings.space);
+								.data('x', (-1)*controller.timelineSettings.width+controller.timelineSettings.space)
+								.data('index', i)
+								.on('click', function () {
+									$('.item-active').removeClass('item-active');
+									$(this).addClass('item-active');
+									controller.getRealItem(scope.nodes[$(this).data('index')]);
+								});
 
 							controller.timelineSettings.width += parseInt($(item).outerWidth(true));	
 							changeClass = !changeClass;												
