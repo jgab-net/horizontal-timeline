@@ -72,7 +72,7 @@ gulp.task('build', ['mv'], function () {
 			gulp.src('./src/views/**/*.html')
 				.pipe(templateCache({
 					module: 'timeline',
-					root: 'timeline/views'	
+					root: 'views'	
 				}))
 		)
 		.pipe(concat('timeline.min.js'))

@@ -2,7 +2,7 @@ angular
 	.module('timeline', [])
 	.directive('timeline', function ($interval, $timeout) {
 		return {
-			templateUrl: '../views/timeline.html',
+			templateUrl: 'views/timeline.html',
 			replace: true,
 			scope: {
 				alias: '@?', 
