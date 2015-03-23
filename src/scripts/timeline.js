@@ -175,7 +175,7 @@ angular
 					});
 
 					scope.style.width = controller.timelineSettings.width+'px';
-					scope.style.left = controller.steps[controller.steps.length>=3? controller.steps.length - 3: controller.steps.length-1];
+					scope.style.left = controller.steps[controller.steps.length>=3? controller.steps.length - 3: controller.steps.length];
 				});
 
 				var stop;
