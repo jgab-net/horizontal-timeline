@@ -75,7 +75,8 @@ $timeline_middle_line_size: 2px;
 			&.timeline-item-node {
 				width: $timeline_box_width;	
 				margin: $timeline_margin_box; 			
-				border: 1px solid red;						
+				border: 1px solid red;	
+				cursor: pointer;					
 				
 				&.item-active {
 					border-color: blue;
