@@ -77,6 +77,14 @@ $timeline_middle_line_size: 2px;
 				margin: $timeline_margin_box; 			
 				border: 1px solid red;						
 				
+				&.item-active {
+					border-color: blue;
+					-webkit-transition: background-color 0.6s;
+					        transition: background-color 0.6s;
+					-webkit-transition: border-color 0.6s;
+					        transition: border-color 0.6s;
+				}
+
 				&.top-line::before {
 					content: '';
 					position: absolute;
