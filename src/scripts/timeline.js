@@ -103,13 +103,13 @@ angular
 					if (value <= this.timelineSettings.space) {				
 						//-1*(this.timelineSettings.space+this.timelineSettings.width-viewPortWidth)
 						if (value > this.steps[this.steps.length - 1]){
-							$scope.style.left = value+'px';
+							$scope.style.left = value;
 						} else {
 							//$scope.style.left = -1*(this.timelineSettings.width-viewPortWidth)-this.timelineSettings.space+'px';
 							$scope.style.left = this.steps[this.steps.length - 1];
 						}
 					} else {
-						$scope.style.left = this.timelineSettings.space+'px';
+						$scope.style.left = this.timelineSettings.space;
 					}
 					$scope.$apply();				
 				};
@@ -130,7 +130,7 @@ angular
 				$timeline = element.find('.timeline');		
 
 				scope.style = {
-					left: controller.timelineSettings.space+'px'
+					left: controller.timelineSettings.space
 				};
 
 				$timeout(function () {
@@ -145,9 +145,9 @@ angular
 						if (scope.nodes[i].type === 'node') {							
 							$(item)
 								.css({
-									left: controller.timelineSettings.width+'px',
-									bottom: changeClass? controller.timelineSettings.padding+'px': '',
-									top: !changeClass? controller.timelineSettings.padding+'px': ''
+									left: controller.timelineSettings.width,
+									bottom: changeClass? controller.timelineSettings.padding : '',
+									top: !changeClass? controller.timelineSettings.padding : ''
 								})
 								.addClass(!changeClass?'bottom-line':'top-line')
 								.addClass('timeline-item-node')
@@ -165,7 +165,7 @@ angular
 							controller.yearSteps.push((-1)*controller.timelineSettings.width+controller.timelineSettings.space);
 							$(item)
 								.css({
-									left: controller.timelineSettings.width+'px'
+									left: controller.timelineSettings.width
 								})
 								.addClass('timeline-item-info')
 								.data('x', (-1)*controller.timelineSettings.width+controller.timelineSettings.space);
@@ -174,8 +174,8 @@ angular
 						}										
 					});
 
-					scope.style.width = controller.timelineSettings.width+'px';
-					scope.style.left = controller.steps[controller.steps.length>=3? controller.steps.length - 3: controller.steps.length-1];
+					scope.style.width = (controller.timelineSettings.width + element.width());
+					scope.style.left = controller.steps[controller.steps.length>=3? controller.steps.length - 3: controller.steps.length-1];					
 				});
 
 				var stop;
