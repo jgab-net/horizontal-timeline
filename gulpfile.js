@@ -70,7 +70,10 @@ gulp.task('build', ['mv'], function () {
 	return eventStream.merge(
 			gulp.src('./src/scripts/timeline.js'),
 			gulp.src('./src/views/**/*.html')
-				.pipe(templateCache())
+				.pipe(templateCache({
+					module: 'timeline',
+					root: 'timeline/views'	
+				}))
 		)
 		.pipe(concat('timeline.min.js'))
 		.pipe(ngAnnotate())
