@@ -7,7 +7,8 @@ angular
 			scope: {
 				alias: '@?', 
 				items: '=',
-				select: '&?'			
+				select: '&?',
+				format: '@?'			
 			}, 			
 			controller: function ($scope) {
 				this.timelineSettings = {
