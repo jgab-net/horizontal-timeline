@@ -158,6 +158,7 @@ angular
 									$('.item-active').removeClass('item-active');
 									$(this).addClass('item-active');
 									controller.getRealItem(scope.nodes[$(this).data('index')]);
+									scope.$apply();
 								});
 
 							controller.timelineSettings.width += parseInt($(item).outerWidth(true));	
