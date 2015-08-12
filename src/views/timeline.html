@@ -6,7 +6,7 @@
 	<div class="timeline timeline-animation" ng-style="style">
 		<div class='timeline-item' ng-repeat="node in nodes" ng-class="{'item-active':$last}">
 			<div ng-if="node.type === 'node'">
-				{{ node.date | date:format? format: 'yyyy-MM-dd' }}
+				{{ node.date | moment:format? format: 'YYYY-MM-DD' }}
 			</div>
 			<div ng-if="node.type === 'info'">
 				{{ node.info }}

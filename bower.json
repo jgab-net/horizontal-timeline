@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "angular": "~1.3.14",
-    "bootstrap-sass-official": "~3.3.3",
+    "bootstrap-sass-official": "3.3.3",
     "moment": "~2.9.0",
     "interact": "~1.2.4"
   }
