@@ -34,6 +34,10 @@ angular
 			{
 				name: 'item5',
 				date: moment().add(3, 'days').toDate()
+			},
+			{
+				name: 'item2',
+				date: '2015-08-12T04:00:00.000Z'
 			}
 		];
 
